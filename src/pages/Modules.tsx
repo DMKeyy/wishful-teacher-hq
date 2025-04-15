@@ -24,7 +24,7 @@ const Modules = () => {
           path=":id" 
           element={
             <>
-              <Header title="Module Details" />
+              <Header title="Module Sections" />
               <div className="p-6">
                 <ModuleDetail />
               </div>

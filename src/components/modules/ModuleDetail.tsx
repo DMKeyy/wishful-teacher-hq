@@ -171,7 +171,7 @@ export const ModuleDetail = () => {
         <Button variant="outline" onClick={() => navigate('/modules')}>
           <ArrowLeft className="mr-2 h-4 w-4" /> Back
         </Button>
-        <h1 className="text-2xl font-bold">{module.name} Module</h1>
+        <h1 className="text-2xl font-bold">{module.name} Module Sections</h1>
       </div>
 
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
