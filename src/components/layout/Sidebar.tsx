@@ -7,7 +7,8 @@ import {
   GiftIcon, 
   Settings, 
   Menu,
-  LogOut
+  LogOut,
+  FolderIcon
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import {
@@ -36,6 +37,11 @@ export const AppSidebar = () => {
       icon: GiftIcon, 
       label: 'Wishes', 
       path: '/wishes' 
+    },
+    { 
+      icon: FolderIcon, 
+      label: 'Modules', 
+      path: '/modules' 
     },
     { 
       icon: Settings, 
