@@ -13,7 +13,7 @@ const Teachers = () => {
           index
           element={
             <>
-              <Header title="Teachers" />
+              <Header title="Teachers" description="Manage your school's teaching staff" />
               <div className="p-6">
                 <TeachersList />
               </div>
