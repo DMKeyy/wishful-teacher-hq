@@ -96,19 +96,19 @@
 
 @layer components {
   .stats-card {
-    @apply bg-white rounded-lg shadow-md p-4 flex flex-col border border-gray-100 hover:shadow-lg transition-shadow duration-300;
+    @apply bg-white rounded-lg shadow-md p-4 flex flex-col border border-gray-100 hover:shadow-lg transition-all duration-300 hover:scale-[1.01] hover:border-primary/30;
   }
   
   .table-container {
-    @apply bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden;
+    @apply bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-all duration-300;
   }
   
   .sidebar-item {
-    @apply flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-all duration-200;
+    @apply flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 hover:bg-primary/10 hover:text-primary;
   }
   
   .sidebar-item-active {
-    @apply bg-sidebar-accent text-white;
+    @apply bg-sidebar-accent text-white hover:bg-sidebar-accent/90;
   }
   
   .transition-all {
@@ -116,6 +116,18 @@
   }
   
   .hover-scale {
-    @apply hover:scale-[1.02] transition-transform duration-200;
+    @apply hover:scale-[1.02] transition-transform duration-200 hover:shadow-sm;
+  }
+
+  .hover-glow {
+    @apply transition-all duration-300 hover:shadow-lg hover:shadow-primary/30;
+  }
+
+  .hover-lift {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-md;
+  }
+
+  .hover-pulse {
+    @apply transition-all duration-300 hover:animate-pulse;
   }
 }
