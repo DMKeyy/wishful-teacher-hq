@@ -8,7 +8,6 @@ import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import Teachers from "./pages/Teachers";
 import Wishes from "./pages/Wishes";
-import Modules from "./pages/Modules";
 import NotFound from "./pages/NotFound";
 import { DashboardLayout } from "./components/layout/Dashboard";
 
@@ -28,7 +27,6 @@ const App = () => (
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="teachers/*" element={<Teachers />} />
             <Route path="wishes/*" element={<Wishes />} />
-            <Route path="modules/*" element={<Modules />} />
           </Route>
           
           {/* Catch-all Route */}

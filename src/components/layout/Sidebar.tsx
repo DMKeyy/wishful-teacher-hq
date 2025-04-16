@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
@@ -7,8 +6,7 @@ import {
   GiftIcon, 
   Settings, 
   Menu,
-  LogOut,
-  FolderIcon
+  LogOut
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import {
@@ -37,11 +35,6 @@ export const AppSidebar = () => {
       icon: GiftIcon, 
       label: 'Wishes', 
       path: '/wishes' 
-    },
-    { 
-      icon: FolderIcon, 
-      label: 'Modules', 
-      path: '/modules' 
     },
     { 
       icon: Settings, 
