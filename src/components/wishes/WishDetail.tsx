@@ -1,13 +1,13 @@
 
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Calendar, DollarSign, User, Tag, Clock, Edit, Trash2, CheckCircle, XCircle, BookOpen, ClipboardList } from 'lucide-react';
+import { ArrowLeft, Calendar, DollarSign, User, Tag, Clock, Edit, Trash2, CheckCircle, XCircle, BookOpen, ClipboardList, ListOrdered, Layout } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Separator } from '@/components/ui/separator';
-import { getWishById, getTeacherById, courses } from '@/lib/data';
+import { getWishById, getTeacherById, courses, classes } from '@/lib/data';
 
 export const WishDetail = () => {
   const { id } = useParams();
@@ -15,7 +15,6 @@ export const WishDetail = () => {
   
   const wish = getWishById(wishId);
   const teacher = wish ? getTeacherById(wish.teacherId) : null;
-  const course = wish?.courseId ? courses.find(course => course.id === wish.courseId) : null;
   
   if (!wish || !teacher) {
     return (
@@ -27,6 +26,26 @@ export const WishDetail = () => {
       </div>
     );
   }
+  
+  // Get preferred courses information
+  const preferredCourses = wish.preferredCourses.map(courseId => {
+    const course = courses.find(c => c.id === courseId);
+    return {
+      id: courseId,
+      name: course ? course.name : 'Unknown Course',
+      credits: course ? course.credits : 0
+    };
+  });
+  
+  // Get preferred classes information
+  const preferredClasses = wish.preferredClasses.map(classId => {
+    const cls = classes.find(c => c.id === classId);
+    return {
+      id: classId,
+      name: cls ? cls.name : 'Unknown Class',
+      capacity: cls ? cls.capacity : 0
+    };
+  });
   
   // Status badge colors
   const getStatusColor = (status: string) => {
@@ -48,13 +67,6 @@ export const WishDetail = () => {
       default: return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
-  
-  // Generate hours breakdown (mocked for now, would use actual data in real implementation)
-  const lectureHours = Math.floor(Math.random() * 15);
-  const tutorialHours = Math.floor(Math.random() * 10);
-  const practicalHours = Math.floor(Math.random() * 8);
-  const additionalHours = Math.floor(Math.random() * 5);
-  const totalHours = lectureHours + tutorialHours + practicalHours;
   
   return (
     <div className="space-y-6">
@@ -102,7 +114,51 @@ export const WishDetail = () => {
               
               <Separator className="my-6" />
               
-              <div className="grid grid-cols-2 gap-4">
+              {/* Preferred Courses Section */}
+              <div className="mb-6">
+                <h3 className="text-md font-medium flex items-center gap-2 mb-3">
+                  <BookOpen className="w-5 h-5" />
+                  <span>Preferred Courses (In Order)</span>
+                </h3>
+                
+                <div className="space-y-3">
+                  {preferredCourses.map((course, index) => (
+                    <div key={index} className="flex items-center p-3 border rounded-md">
+                      <div className="bg-primary-100 text-primary rounded-full w-6 h-6 flex items-center justify-center mr-3">
+                        {index + 1}
+                      </div>
+                      <div>
+                        <div className="font-medium">{course.name}</div>
+                        <div className="text-sm text-gray-500">{course.credits} credits</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              {/* Preferred Classes Section */}
+              <div className="mb-6">
+                <h3 className="text-md font-medium flex items-center gap-2 mb-3">
+                  <Layout className="w-5 h-5" />
+                  <span>Preferred Classes (In Order)</span>
+                </h3>
+                
+                <div className="space-y-3">
+                  {preferredClasses.map((cls, index) => (
+                    <div key={index} className="flex items-center p-3 border rounded-md">
+                      <div className="bg-primary-100 text-primary rounded-full w-6 h-6 flex items-center justify-center mr-3">
+                        {index + 1}
+                      </div>
+                      <div>
+                        <div className="font-medium">{cls.name}</div>
+                        <div className="text-sm text-gray-500">Capacity: {cls.capacity} students</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4 mb-6">
                 <div className="flex items-center gap-2">
                   <Calendar className="w-5 h-5 text-gray-500" />
                   <div>
@@ -112,54 +168,38 @@ export const WishDetail = () => {
                 </div>
                 
                 <div className="flex items-center gap-2">
-                  <DollarSign className="w-5 h-5 text-gray-500" />
-                  <div>
-                    <div className="text-sm text-gray-500">Estimated Cost</div>
-                    <div className="font-medium">${wish.estimatedCost.toLocaleString()}</div>
-                  </div>
-                </div>
-                
-                <div className="flex items-center gap-2">
-                  <BookOpen className="w-5 h-5 text-gray-500" />
-                  <div>
-                    <div className="text-sm text-gray-500">Course</div>
-                    <div className="font-medium">{course ? course.name : 'Unknown'}</div>
-                  </div>
-                </div>
-                
-                <div className="flex items-center gap-2">
                   <Clock className="w-5 h-5 text-gray-500" />
                   <div>
                     <div className="text-sm text-gray-500">Total Hours</div>
-                    <div className="font-medium">{totalHours} hours</div>
+                    <div className="font-medium">{wish.teachingHours.total} hours</div>
                   </div>
                 </div>
               </div>
               
-              {/* New Teaching Hours Breakdown */}
-              <div className="mt-6">
-                <h3 className="text-md font-medium flex items-center gap-2">
+              {/* Teaching Hours Breakdown */}
+              <div className="mb-6">
+                <h3 className="text-md font-medium flex items-center gap-2 mb-3">
                   <ClipboardList className="w-5 h-5" />
                   <span>Teaching Hours Breakdown</span>
                 </h3>
                 
-                <div className="mt-3 grid grid-cols-2 gap-y-3 border rounded-md p-4">
+                <div className="grid grid-cols-2 gap-y-3 border rounded-md p-4">
                   <div>
                     <div className="text-sm text-gray-500">Lectures</div>
-                    <div className="font-medium">{lectureHours} hours</div>
+                    <div className="font-medium">{wish.teachingHours.lecture} hours</div>
                   </div>
                   <div>
                     <div className="text-sm text-gray-500">Tutorials (TD)</div>
-                    <div className="font-medium">{tutorialHours} hours</div>
+                    <div className="font-medium">{wish.teachingHours.tutorial} hours</div>
                   </div>
                   <div>
                     <div className="text-sm text-gray-500">Practicals (TP)</div>
-                    <div className="font-medium">{practicalHours} hours</div>
+                    <div className="font-medium">{wish.teachingHours.practical} hours</div>
                   </div>
-                  {additionalHours > 0 && (
+                  {wish.teachingHours.additional > 0 && (
                     <div>
                       <div className="text-sm text-gray-500">Additional Hours</div>
-                      <div className="font-medium text-primary">+{additionalHours} hours</div>
+                      <div className="font-medium text-primary">+{wish.teachingHours.additional} hours</div>
                     </div>
                   )}
                 </div>
@@ -248,7 +288,7 @@ export const WishDetail = () => {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-sm text-gray-500">Additional Hours Requested</span>
-                  <span className="font-medium">{additionalHours} hours</span>
+                  <span className="font-medium">{wish.teachingHours.additional} hours</span>
                 </div>
               </div>
               

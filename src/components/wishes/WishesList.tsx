@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, Filter, Plus, ChevronRight, BookOpen, Clock } from 'lucide-react';
+import { Search, Filter, Plus, ChevronRight, BookOpen, Clock, Layout, ListOrdered } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
@@ -15,13 +15,22 @@ import {
   DropdownMenuSeparator, 
   DropdownMenuTrigger 
 } from '@/components/ui/dropdown-menu';
-import { Wish, wishes, teachers, getTeacherById, courses } from '@/lib/data';
+import { Wish, wishes, teachers, getTeacherById, courses, classes, getClassById } from '@/lib/data';
 
 export const WishItem = ({ wish, showTeacher = true }: { wish: Wish, showTeacher?: boolean }) => {
   const teacher = getTeacherById(wish.teacherId);
   
-  // Get course name if courseId is specified
-  const courseName = wish.courseId ? courses.find(course => course.id === wish.courseId)?.name : 'Unknown';
+  // Get preferred courses names
+  const preferredCourses = wish.preferredCourses.map(courseId => {
+    const course = courses.find(c => c.id === courseId);
+    return course ? course.name : 'Unknown Course';
+  });
+  
+  // Get preferred classes names
+  const preferredClasses = wish.preferredClasses.map(classId => {
+    const cls = classes.find(c => c.id === classId);
+    return cls ? cls.name : 'Unknown Class';
+  });
   
   // Status badge colors
   const getStatusColor = (status: string) => {
@@ -44,12 +53,6 @@ export const WishItem = ({ wish, showTeacher = true }: { wish: Wish, showTeacher
     }
   };
   
-  // Generate hours breakdown (mocked for now, would use actual data in real implementation)
-  const lectureHours = Math.floor(Math.random() * 15);
-  const tutorialHours = Math.floor(Math.random() * 10);
-  const practicalHours = Math.floor(Math.random() * 8);
-  const additionalHours = Math.floor(Math.random() * 5);
-  
   return (
     <Card className="hover-scale">
       <CardContent className="p-4">
@@ -68,32 +71,52 @@ export const WishItem = ({ wish, showTeacher = true }: { wish: Wish, showTeacher
               <Badge variant="outline">{wish.category}</Badge>
             </div>
             
-            {/* New Course Info */}
-            <div className="mt-3 flex items-center gap-2">
-              <BookOpen className="w-4 h-4 text-gray-500" />
-              <span className="text-sm font-medium">Course: {courseName}</span>
+            {/* Preferred Courses */}
+            <div className="mt-3">
+              <div className="flex items-center gap-2 mb-1">
+                <ListOrdered className="w-4 h-4 text-gray-500" />
+                <span className="text-sm font-medium">Preferred Courses:</span>
+              </div>
+              <ol className="list-decimal pl-6 text-sm">
+                {preferredCourses.map((course, index) => (
+                  <li key={index}>{course}</li>
+                ))}
+              </ol>
+            </div>
+            
+            {/* Preferred Classes */}
+            <div className="mt-2">
+              <div className="flex items-center gap-2 mb-1">
+                <Layout className="w-4 h-4 text-gray-500" />
+                <span className="text-sm font-medium">Preferred Classes:</span>
+              </div>
+              <ol className="list-decimal pl-6 text-sm">
+                {preferredClasses.map((cls, index) => (
+                  <li key={index}>{cls}</li>
+                ))}
+              </ol>
             </div>
             
             {/* Hours Breakdown */}
             <div className="mt-2 space-y-1 text-sm text-gray-600">
               <div className="flex items-center justify-between">
                 <span>Lectures:</span>
-                <span>{lectureHours} hours</span>
+                <span>{wish.teachingHours.lecture} hours</span>
               </div>
               <div className="flex items-center justify-between">
                 <span>Tutorials (TD):</span>
-                <span>{tutorialHours} hours</span>
+                <span>{wish.teachingHours.tutorial} hours</span>
               </div>
               <div className="flex items-center justify-between">
                 <span>Practicals (TP):</span>
-                <span>{practicalHours} hours</span>
+                <span>{wish.teachingHours.practical} hours</span>
               </div>
               
               {/* Additional Hours */}
-              {additionalHours > 0 && (
+              {wish.teachingHours.additional > 0 && (
                 <div className="flex items-center justify-between font-medium text-primary">
                   <span>Additional Hours:</span>
-                  <span>+{additionalHours} hours</span>
+                  <span>+{wish.teachingHours.additional} hours</span>
                 </div>
               )}
             </div>
@@ -112,9 +135,11 @@ export const WishItem = ({ wish, showTeacher = true }: { wish: Wish, showTeacher
           <div className="flex flex-col items-end justify-between">
             <div className="flex items-center gap-1">
               <Clock className="w-4 h-4 text-gray-500" />
-              <div className="text-sm font-medium">{lectureHours + tutorialHours + practicalHours} hours</div>
+              <div className="text-sm font-medium">{wish.teachingHours.total} hours</div>
             </div>
-            <div className="text-sm font-medium mt-1">${wish.estimatedCost.toLocaleString()}</div>
+            {wish.teachingHours.additional > 0 && (
+              <div className="text-sm text-primary mt-1">+{wish.teachingHours.additional} additional</div>
+            )}
             <Link to={`/wishes/${wish.id}`}>
               <Button variant="ghost" size="icon" className="mt-4">
                 <ChevronRight className="h-4 w-4" />

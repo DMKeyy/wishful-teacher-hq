@@ -89,108 +89,141 @@ export const courses = [
   }
 ];
 
+export const classes = [
+  {
+    id: 1,
+    name: "Class A-101",
+    capacity: 30
+  },
+  {
+    id: 2,
+    name: "Class B-202",
+    capacity: 25
+  },
+  {
+    id: 3,
+    name: "Class C-303",
+    capacity: 40
+  },
+  {
+    id: 4,
+    name: "Class D-404",
+    capacity: 35
+  },
+  {
+    id: 5,
+    name: "Class E-505",
+    capacity: 50
+  }
+];
+
 export const wishes = [
   {
     id: 1,
     teacherId: 1,
-    title: "New graphing calculators",
-    description: "Need 30 new TI-84 calculators for the advanced math classes.",
+    title: "Mathematics Teaching Preferences",
+    description: "My teaching preferences for the upcoming semester.",
     status: "pending",
     priority: "high",
-    category: "Equipment",
+    category: "Teaching Assignment",
     dateCreated: "2024-02-15",
-    estimatedCost: 3500,
-    courseId: 1
+    estimatedCost: 0,
+    preferredCourses: [1, 3, 5],
+    preferredClasses: [1, 3, 2],
+    teachingHours: {
+      total: 12,
+      lecture: 6,
+      tutorial: 4,
+      practical: 2,
+      additional: 2
+    }
   },
   {
     id: 2,
-    teacherId: 1,
-    title: "Math competition registration",
-    description: "Registration fees for 10 students for state math competition.",
+    teacherId: 2,
+    title: "History Teaching Preferences",
+    description: "Preferred teaching assignments for next semester.",
     status: "approved",
     priority: "medium",
-    category: "Activities",
+    category: "Teaching Assignment",
     dateCreated: "2024-01-20",
-    estimatedCost: 500,
-    courseId: 1
+    estimatedCost: 0,
+    preferredCourses: [2, 5, 4],
+    preferredClasses: [2, 4, 5],
+    teachingHours: {
+      total: 12,
+      lecture: 8,
+      tutorial: 4,
+      practical: 0,
+      additional: 0
+    }
   },
   {
     id: 3,
-    teacherId: 2,
-    title: "History museum field trip",
-    description: "Transportation and entry fees for 45 students to visit history museum.",
+    teacherId: 3,
+    title: "Literature Teaching Assignments",
+    description: "Request for specific teaching assignments.",
     status: "completed",
     priority: "medium",
-    category: "Field Trip",
+    category: "Teaching Assignment",
     dateCreated: "2023-11-05",
-    estimatedCost: 1200,
-    courseId: 2
+    estimatedCost: 0,
+    preferredCourses: [4, 2, 5],
+    preferredClasses: [3, 1, 4],
+    teachingHours: {
+      total: 12,
+      lecture: 6,
+      tutorial: 3,
+      practical: 3,
+      additional: 1
+    }
   },
   {
     id: 4,
-    teacherId: 3,
-    title: "Class set of novels",
-    description: "30 copies of 'To Kill a Mockingbird' for 10th grade curriculum.",
+    teacherId: 4,
+    title: "Physics Teaching Preferences",
+    description: "Teaching preferences for physics department.",
     status: "approved",
     priority: "high",
-    category: "Books",
+    category: "Teaching Assignment",
     dateCreated: "2024-02-01",
-    estimatedCost: 600,
-    courseId: 4
+    estimatedCost: 0,
+    preferredCourses: [1, 5, 3],
+    preferredClasses: [5, 2, 1],
+    teachingHours: {
+      total: 12,
+      lecture: 4,
+      tutorial: 4,
+      practical: 4,
+      additional: 3
+    }
   },
   {
     id: 5,
-    teacherId: 4,
-    title: "Physics lab equipment upgrade",
-    description: "New oscilloscopes and wave generators for physics experiments.",
+    teacherId: 5,
+    title: "Computer Science Teaching Request",
+    description: "Preferences for CS courses and labs.",
     status: "pending",
     priority: "high",
-    category: "Equipment",
+    category: "Teaching Assignment",
     dateCreated: "2024-03-10",
-    estimatedCost: 4500,
-    courseId: 1
-  },
-  {
-    id: 6,
-    teacherId: 5,
-    title: "Coding competition sponsorship",
-    description: "Registration and travel for 5 students to attend national coding competition.",
-    status: "declined",
-    priority: "low",
-    category: "Activities",
-    dateCreated: "2024-01-15",
-    estimatedCost: 2800,
-    courseId: 3
-  },
-  {
-    id: 7,
-    teacherId: 5,
-    title: "Classroom laptops",
-    description: "15 laptops for computer science classroom for advanced programming projects.",
-    status: "approved",
-    priority: "high",
-    category: "Equipment",
-    dateCreated: "2023-12-08",
-    estimatedCost: 12000,
-    courseId: 3
-  },
-  {
-    id: 8,
-    teacherId: 2,
-    title: "Historical document reproductions",
-    description: "Set of reproduction historical documents for hands-on history lessons.",
-    status: "completed",
-    priority: "medium",
-    category: "Teaching Materials",
-    dateCreated: "2023-10-25",
-    estimatedCost: 350,
-    courseId: 2
+    estimatedCost: 0,
+    preferredCourses: [3, 1, 5],
+    preferredClasses: [4, 2, 3],
+    teachingHours: {
+      total: 12,
+      lecture: 5,
+      tutorial: 3,
+      practical: 4,
+      additional: 2
+    }
   }
 ];
 
 export type Teacher = typeof teachers[0];
 export type Wish = typeof wishes[0];
 export type Course = typeof courses[0];
+export type Class = typeof classes[0];
 
 export const getTeacherById = (id: number) => {
   return teachers.find(teacher => teacher.id === id);
@@ -273,4 +306,8 @@ export const getTeachersByCourse = () => {
   });
   
   return teacherCounts;
+};
+
+export const getClassById = (id: number) => {
+  return classes.find(cls => cls.id === id);
 };
