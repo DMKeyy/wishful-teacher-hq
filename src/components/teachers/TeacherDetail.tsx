@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Mail, Phone, Calendar, Book, Edit, Trash2 } from 'lucide-react';
+import { ArrowLeft, Mail, Phone, Calendar, Check, X, Edit, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -28,6 +28,9 @@ export const TeacherDetail = () => {
     );
   }
   
+  // Check if teacher has submitted wishes
+  const hasSubmittedWishes = wishes.length > 0;
+  
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-2">
@@ -49,7 +52,7 @@ export const TeacherDetail = () => {
               </Avatar>
             </div>
             <CardTitle>{teacher.name}</CardTitle>
-            <CardDescription>{teacher.subject} Teacher</CardDescription>
+            <CardDescription>{teacher.email}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -62,8 +65,17 @@ export const TeacherDetail = () => {
                 <span>Joined {new Date(teacher.joinDate).toLocaleDateString()}</span>
               </div>
               <div className="flex items-center gap-3">
-                <Book className="w-5 h-5 text-gray-500" />
-                <span>{teacher.department}</span>
+                {hasSubmittedWishes ? (
+                  <>
+                    <Check className="w-5 h-5 text-green-500" />
+                    <span className="text-green-600">Wishes submitted</span>
+                  </>
+                ) : (
+                  <>
+                    <X className="w-5 h-5 text-red-500" />
+                    <span className="text-red-600">No wishes submitted</span>
+                  </>
+                )}
               </div>
               
               <div className="pt-4 flex justify-between">
