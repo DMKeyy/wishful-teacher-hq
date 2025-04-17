@@ -1,7 +1,6 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, Filter, Plus, ChevronRight, BookOpen, Clock, Layout, ListOrdered } from 'lucide-react';
+import { Search, Filter, Plus, ChevronRight, BookOpen, Clock, Layout, ListOrdered, User, Briefcase } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
@@ -32,116 +31,83 @@ export const WishItem = ({ wish, showTeacher = true }: { wish: Wish, showTeacher
     return cls ? cls.name : 'Unknown Class';
   });
   
-  // Status badge colors
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'approved': return 'bg-green-100 text-green-800 border-green-200';
-      case 'pending': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'completed': return 'bg-blue-100 text-blue-800 border-blue-200';
-      case 'declined': return 'bg-red-100 text-red-800 border-red-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
-    }
-  };
-  
-  // Priority badge colors
-  const getPriorityColor = (priority: string) => {
-    switch (priority) {
-      case 'high': return 'bg-red-100 text-red-800 border-red-200';
-      case 'medium': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'low': return 'bg-green-100 text-green-800 border-green-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
-    }
-  };
-  
   return (
     <Card className="hover-scale">
       <CardContent className="p-4">
-        <div className="flex justify-between">
-          <div>
-            <h3 className="font-medium">{wish.title}</h3>
-            <p className="text-sm text-gray-500 mt-1">{wish.description}</p>
-            
-            <div className="flex flex-wrap gap-2 mt-3">
-              <Badge className={getStatusColor(wish.status)} variant="outline">
-                {wish.status.charAt(0).toUpperCase() + wish.status.slice(1)}
-              </Badge>
-              <Badge className={getPriorityColor(wish.priority)} variant="outline">
-                {wish.priority.charAt(0).toUpperCase() + wish.priority.slice(1)} Priority
-              </Badge>
-              <Badge variant="outline">{wish.category}</Badge>
+        <div className="flex flex-col md:flex-row gap-4">
+          {/* Teacher Information - Replace title and tags */}
+          <div className="flex items-start gap-3 md:w-1/4">
+            <Avatar className="h-10 w-10">
+              <AvatarImage src={teacher?.avatar} alt={teacher?.name} />
+              <AvatarFallback>{teacher?.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+            </Avatar>
+            <div>
+              <h3 className="font-medium">{teacher?.name}</h3>
+              <div className="flex items-center text-sm text-gray-500">
+                <Briefcase className="w-3 h-3 mr-1" /> 
+                <span>{teacher?.department}</span>
+              </div>
+              <div className="flex items-center text-sm text-gray-500">
+                <User className="w-3 h-3 mr-1" /> 
+                <span>{teacher?.subject}</span>
+              </div>
             </div>
-            
-            {/* Preferred Courses */}
-            <div className="mt-3">
-              <div className="flex items-center gap-2 mb-1">
-                <ListOrdered className="w-4 h-4 text-gray-500" />
-                <span className="text-sm font-medium">Preferred Courses:</span>
-              </div>
-              <ol className="list-decimal pl-6 text-sm">
-                {preferredCourses.map((course, index) => (
-                  <li key={index}>{course}</li>
-                ))}
-              </ol>
-            </div>
-            
-            {/* Preferred Classes */}
-            <div className="mt-2">
-              <div className="flex items-center gap-2 mb-1">
-                <Layout className="w-4 h-4 text-gray-500" />
-                <span className="text-sm font-medium">Preferred Classes:</span>
-              </div>
-              <ol className="list-decimal pl-6 text-sm">
-                {preferredClasses.map((cls, index) => (
-                  <li key={index}>{cls}</li>
-                ))}
-              </ol>
-            </div>
-            
-            {/* Hours Breakdown */}
-            <div className="mt-2 space-y-1 text-sm text-gray-600">
-              <div className="flex items-center justify-between">
-                <span>Lectures:</span>
-                <span>{wish.teachingHours.lecture} hours</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span>Tutorials (TD):</span>
-                <span>{wish.teachingHours.tutorial} hours</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span>Practicals (TP):</span>
-                <span>{wish.teachingHours.practical} hours</span>
-              </div>
-              
-              {/* Additional Hours */}
-              {wish.teachingHours.additional > 0 && (
-                <div className="flex items-center justify-between font-medium text-primary">
-                  <span>Additional Hours:</span>
-                  <span>+{wish.teachingHours.additional} hours</span>
-                </div>
-              )}
-            </div>
-            
-            {showTeacher && teacher && (
-              <div className="mt-4 flex items-center gap-2">
-                <Avatar className="h-6 w-6">
-                  <AvatarImage src={teacher.avatar} alt={teacher.name} />
-                  <AvatarFallback>{teacher.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
-                </Avatar>
-                <span className="text-sm">{teacher.name}</span>
-              </div>
-            )}
           </div>
           
-          <div className="flex flex-col items-end justify-between">
-            <div className="flex items-center gap-1">
-              <Clock className="w-4 h-4 text-gray-500" />
-              <div className="text-sm font-medium">{wish.teachingHours.total} hours</div>
+          {/* Courses Section - Middle */}
+          <div className="md:w-1/3">
+            <div className="flex items-center gap-1 mb-2">
+              <ListOrdered className="w-4 h-4 text-gray-500" />
+              <span className="text-sm font-medium">Preferred Courses:</span>
             </div>
-            {wish.teachingHours.additional > 0 && (
-              <div className="text-sm text-primary mt-1">+{wish.teachingHours.additional} additional</div>
-            )}
+            <div className="space-y-1">
+              {preferredCourses.slice(0, 3).map((course, index) => (
+                <div key={index} className="flex items-center gap-1">
+                  <span className="text-xs font-medium bg-gray-100 rounded-full w-4 h-4 flex items-center justify-center">
+                    {index + 1}
+                  </span>
+                  <span className="text-sm truncate">{course}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          {/* Classes Section */}
+          <div className="md:w-1/4">
+            <div className="flex items-center gap-1 mb-2">
+              <Layout className="w-4 h-4 text-gray-500" />
+              <span className="text-sm font-medium">Preferred Classes:</span>
+            </div>
+            <div className="space-y-1">
+              {preferredClasses.slice(0, 3).map((cls, index) => (
+                <div key={index} className="flex items-center gap-1">
+                  <span className="text-xs font-medium bg-gray-100 rounded-full w-4 h-4 flex items-center justify-center">
+                    {index + 1}
+                  </span>
+                  <span className="text-sm truncate">{cls}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          {/* Hours Section - Right Side */}
+          <div className="md:w-1/6 flex flex-row md:flex-col justify-between md:items-end">
+            <div>
+              <div className="flex items-center gap-1">
+                <Clock className="w-4 h-4 text-gray-500" />
+                <div className="text-sm font-medium">{wish.teachingHours.total} hours</div>
+              </div>
+              <div className="text-xs space-y-1 text-gray-600">
+                <div>Lectures: {wish.teachingHours.lecture}h</div>
+                <div>TD: {wish.teachingHours.tutorial}h</div>
+                <div>TP: {wish.teachingHours.practical}h</div>
+                {wish.teachingHours.additional > 0 && (
+                  <div className="text-primary">+{wish.teachingHours.additional}h additional</div>
+                )}
+              </div>
+            </div>
             <Link to={`/wishes/${wish.id}`}>
-              <Button variant="ghost" size="icon" className="mt-4">
+              <Button variant="ghost" size="icon">
                 <ChevronRight className="h-4 w-4" />
               </Button>
             </Link>

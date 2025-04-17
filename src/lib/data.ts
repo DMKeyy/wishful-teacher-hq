@@ -278,12 +278,15 @@ export const getCourseWishCounts = () => {
   const courseWishes: Record<string, number> = {};
   
   wishes.forEach(wish => {
-    if (wish.courseId) {
-      if (courseWishes[wish.courseId]) {
-        courseWishes[wish.courseId]++;
-      } else {
-        courseWishes[wish.courseId] = 1;
-      }
+    if (wish.preferredCourses && wish.preferredCourses.length > 0) {
+      wish.preferredCourses.forEach(courseId => {
+        const courseIdKey = courseId.toString();
+        if (courseWishes[courseIdKey]) {
+          courseWishes[courseIdKey]++;
+        } else {
+          courseWishes[courseIdKey] = 1;
+        }
+      });
     }
   });
   
