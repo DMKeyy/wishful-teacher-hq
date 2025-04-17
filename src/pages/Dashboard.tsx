@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Header } from '@/components/layout/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -44,59 +43,63 @@ const Dashboard = () => {
       
       <div className="p-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-gray-500 mb-1">Total Teachers</p>
-                  <h3 className="text-3xl font-bold">{teachers.length}</h3>
-                </div>
-                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                  <Users className="h-6 w-6 text-blue-600" />
-                </div>
-              </div>
+          <Card className="bg-[#9eb2b4] shadow-[0_4px_20px_-2px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_30px_-2px_rgba(0,0,0,0.4)] transition-all duration-300 hover:-translate-y-1">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium text-white">
+                Total Teachers
+              </CardTitle>
+              <Users className="h-4 w-4 text-white" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-white">{teachers.length}</div>
+              <p className="text-xs text-white/80">
+                Active teachers in the system
+              </p>
             </CardContent>
           </Card>
           
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-gray-500 mb-1">Total Courses</p>
-                  <h3 className="text-3xl font-bold">{courses.length}</h3>
-                </div>
-                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                  <BookOpen className="h-6 w-6 text-purple-600" />
-                </div>
-              </div>
+          <Card className="bg-[#9eb2b4] shadow-[0_4px_20px_-2px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_30px_-2px_rgba(0,0,0,0.4)] transition-all duration-300 hover:-translate-y-1">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium text-white">
+                Total Courses
+              </CardTitle>
+              <BookOpen className="h-4 w-4 text-white" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-white">{courses.length}</div>
+              <p className="text-xs text-white/80">
+                Total courses available
+              </p>
             </CardContent>
           </Card>
           
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-gray-500 mb-1">Credits Allocated</p>
-                  <h3 className="text-3xl font-bold">{courses.reduce((total, course) => total + course.credits, 0)}</h3>
-                </div>
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                  <GraduationCap className="h-6 w-6 text-green-600" />
-                </div>
-              </div>
+          <Card className="bg-[#9eb2b4] shadow-[0_4px_20px_-2px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_30px_-2px_rgba(0,0,0,0.4)] transition-all duration-300 hover:-translate-y-1">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium text-white">
+                Credits Allocated
+              </CardTitle>
+              <GraduationCap className="h-4 w-4 text-white" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-white">{courses.reduce((total, course) => total + course.credits, 0)}</div>
+              <p className="text-xs text-white/80">
+                Total credits allocated across all courses
+              </p>
             </CardContent>
           </Card>
           
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-gray-500 mb-1">Pending Wishes</p>
-                  <h3 className="text-3xl font-bold">{wishStatusCounts.pending}</h3>
-                </div>
-                <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
-                  <Clock className="h-6 w-6 text-yellow-600" />
-                </div>
-              </div>
+          <Card className="bg-[#9eb2b4] shadow-[0_4px_20px_-2px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_30px_-2px_rgba(0,0,0,0.4)] transition-all duration-300 hover:-translate-y-1">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium text-white">
+                Pending Wishes
+              </CardTitle>
+              <Clock className="h-4 w-4 text-white" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-white">{wishStatusCounts.pending}</div>
+              <p className="text-xs text-white/80">
+                Wishes awaiting completion
+              </p>
             </CardContent>
           </Card>
         </div>
