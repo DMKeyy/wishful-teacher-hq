@@ -2,8 +2,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Eye, EyeOff, User, Lock } from 'lucide-react';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -11,52 +13,73 @@ const Login = () => {
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    // For demonstration, navigate to dashboard
     navigate('/dashboard');
   };
   
   return (
-    <div className="min-h-screen flex bg-[#536c6d]">
-      {/* Left Side */}
-      <div className="flex-1 flex flex-col justify-center px-12 text-white">
-        <h1 className="text-5xl font-light mb-6 leading-tight animate-fade-in">
-          Gérez les fiches de vœux pédagogiques en toute simplicité.
-        </h1>
-        <p className="text-xl text-gray-100 animate-fade-in delay-100">
-          Outil dédié aux départements universitaires.
-        </p>
-      </div>
-
-      {/* Right Side */}
-      <div className="flex-1 flex items-center justify-center bg-[#eef1f5]">
-        <Card className="w-[400px] border-0 shadow-lg hover-lift animate-fade-in delay-200">
-          <CardContent className="pt-6">
-            <h2 className="text-2xl font-semibold mb-6 text-center text-gray-900">
-              Connexion
-            </h2>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="w-full max-w-md p-6">
+        <div className="mb-8 text-center">
+          <div className="flex justify-center mb-4">
+            <div className="w-12 h-12 rounded-full bg-[#9eb2b4] flex items-center justify-center text-white font-bold text-xl">
+              WA
+            </div>
+          </div>
+          <h1 className="text-2xl font-semibold text-gray-900">Welcome to WishAdmin</h1>
+          <p className="text-gray-600 mt-2">Sign in to your account</p>
+        </div>
+        
+        <Card className="border-0 shadow-lg">
+          <CardHeader>
+            <CardTitle className="text-xl font-semibold text-center">Login</CardTitle>
+          </CardHeader>
+          <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Input
-                  type="email"
-                  placeholder="Email"
-                  className="h-12 text-base bg-white border border-gray-200"
-                  required
-                />
+                <Label htmlFor="email">Email</Label>
+                <div className="relative">
+                  <div className="absolute left-3 top-3 text-gray-400">
+                    <User size={20} />
+                  </div>
+                  <Input 
+                    id="email"
+                    type="email"
+                    placeholder="Enter your email"
+                    className="pl-10"
+                    required
+                  />
+                </div>
               </div>
               
               <div className="space-y-2">
-                <Input
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Mot de passe"
-                  className="h-12 text-base bg-white border border-gray-200"
-                  required
-                />
+                <Label htmlFor="password">Password</Label>
+                <div className="relative">
+                  <div className="absolute left-3 top-3 text-gray-400">
+                    <Lock size={20} />
+                  </div>
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Enter your password"
+                    className="pl-10"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+                  >
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                  </button>
+                </div>
               </div>
               
               <Button 
                 type="submit" 
-                className="w-full h-12 text-base font-medium bg-[#536c6d] hover:bg-[#465a5b] transition-colors"
+                className="w-full bg-[#9eb2b4] hover:bg-[#8a9ea0] transition-colors"
               >
-                Se connecter
+                Sign In
               </Button>
             </form>
           </CardContent>
