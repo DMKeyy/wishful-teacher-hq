@@ -24,14 +24,23 @@ const Login = () => {
   
   return (
     <div className="min-h-screen grid grid-cols-1 md:grid-cols-2">
-      {/* Left side - Content */}
-      <div className="bg-[#536c6d] p-8 flex flex-col justify-center text-white">
-        <h1 className="text-4xl font-bold mb-6">
-          Gérez les fiches de vœux pédagogiques en toute simplicité.
-        </h1>
-        <p className="text-xl opacity-90">
-          Outil dédié aux départements universitaires.
-        </p>
+      {/* Left side - Content with background image */}
+      <div 
+        className="relative bg-cover bg-center p-8 flex flex-col justify-center text-white"
+        style={{
+          backgroundImage: 'linear-gradient(rgba(83, 108, 109, 0.85), rgba(83, 108, 109, 0.85)), url("/lovable-uploads/0a6432a8-1fae-42b4-9722-73641b3913e3.png")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}
+      >
+        <div className="relative z-10">
+          <h1 className="text-4xl font-bold mb-6">
+            Gérez les fiches de vœux pédagogiques en toute simplicité.
+          </h1>
+          <p className="text-xl opacity-90">
+            Outil dédié aux départements universitaires.
+          </p>
+        </div>
       </div>
 
       {/* Right side - Login form */}
@@ -77,3 +86,4 @@ const Login = () => {
 };
 
 export default Login;
+
