@@ -1,9 +1,10 @@
+
 import React from 'react';
 import { Header } from '@/components/layout/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip } from 'recharts';
 import { AreaChart, Area } from 'recharts';
-import { Users, BookOpen, CheckCircle, Clock, GraduationCap } from 'lucide-react';
+import { Users, BookOpen, CheckCircle, Clock, GraduationCap, FileText } from 'lucide-react';
 import { teachers, wishes, courses, getWishStatusCounts, getCourseWishCounts, getTeachersByCourse } from '@/lib/data';
 
 const Dashboard = () => {
@@ -76,14 +77,14 @@ const Dashboard = () => {
           <Card className="bg-[#9eb2b4] shadow-[0_4px_20px_-2px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_30px_-2px_rgba(0,0,0,0.4)] transition-all duration-300 hover:-translate-y-1">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-white">
-                Credits Allocated
+                Submitted Wishes
               </CardTitle>
-              <GraduationCap className="h-4 w-4 text-white" />
+              <FileText className="h-4 w-4 text-white" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-white">{courses.reduce((total, course) => total + course.credits, 0)}</div>
+              <div className="text-2xl font-bold text-white">{wishes.length}</div>
               <p className="text-xs text-white/80">
-                Total credits allocated across all courses
+                Total wish requests submitted
               </p>
             </CardContent>
           </Card>
