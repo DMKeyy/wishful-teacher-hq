@@ -2,7 +2,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
-  BarChart3, 
   Users, 
   GiftIcon, 
   Menu,
@@ -23,11 +22,6 @@ export const AppSidebar = () => {
   const location = useLocation();
   
   const menuItems = [
-    { 
-      icon: BarChart3, 
-      label: 'Dashboard', 
-      path: '/dashboard' 
-    },
     { 
       icon: Users, 
       label: 'Teachers', 
