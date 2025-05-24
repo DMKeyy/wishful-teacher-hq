@@ -4,32 +4,26 @@ import { Header } from '@/components/layout/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Button } from '@/components/ui/button';
-import { Settings2, Save, RotateCcw } from 'lucide-react';
+import { GiftIcon, Save, RotateCcw } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 const ControlPanel = () => {
-  const [formSubmissionEnabled, setFormSubmissionEnabled] = useState(true);
   const [wishSubmissionEnabled, setWishSubmissionEnabled] = useState(true);
-  const [teacherRegistrationEnabled, setTeacherRegistrationEnabled] = useState(true);
-  const [courseCreationEnabled, setCourseCreationEnabled] = useState(true);
   const { toast } = useToast();
 
   const handleSaveSettings = () => {
     // Here you would typically save the settings to a backend or local storage
     toast({
       title: "Settings Saved",
-      description: "Form submission settings have been updated successfully.",
+      description: "Wish submission setting has been updated successfully.",
     });
   };
 
   const handleResetSettings = () => {
-    setFormSubmissionEnabled(true);
     setWishSubmissionEnabled(true);
-    setTeacherRegistrationEnabled(true);
-    setCourseCreationEnabled(true);
     toast({
       title: "Settings Reset",
-      description: "All form submission settings have been reset to default.",
+      description: "Wish submission setting has been reset to default.",
     });
   };
 
@@ -42,27 +36,14 @@ const ControlPanel = () => {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Settings2 className="h-5 w-5" />
-                Form Submission Controls
+                <GiftIcon className="h-5 w-5" />
+                Wish Submission Control
               </CardTitle>
               <p className="text-sm text-gray-600">
-                Enable or disable form submissions across the application
+                Enable or disable wish submissions across the application
               </p>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="flex items-center justify-between">
-                <div className="space-y-1">
-                  <h3 className="text-sm font-medium">General Form Submissions</h3>
-                  <p className="text-sm text-gray-600">
-                    Master control for all form submissions in the application
-                  </p>
-                </div>
-                <Switch
-                  checked={formSubmissionEnabled}
-                  onCheckedChange={setFormSubmissionEnabled}
-                />
-              </div>
-
               <div className="flex items-center justify-between">
                 <div className="space-y-1">
                   <h3 className="text-sm font-medium">Wish Submissions</h3>
@@ -71,37 +52,8 @@ const ControlPanel = () => {
                   </p>
                 </div>
                 <Switch
-                  checked={wishSubmissionEnabled && formSubmissionEnabled}
+                  checked={wishSubmissionEnabled}
                   onCheckedChange={setWishSubmissionEnabled}
-                  disabled={!formSubmissionEnabled}
-                />
-              </div>
-
-              <div className="flex items-center justify-between">
-                <div className="space-y-1">
-                  <h3 className="text-sm font-medium">Teacher Registration</h3>
-                  <p className="text-sm text-gray-600">
-                    Allow registration of new teachers
-                  </p>
-                </div>
-                <Switch
-                  checked={teacherRegistrationEnabled && formSubmissionEnabled}
-                  onCheckedChange={setTeacherRegistrationEnabled}
-                  disabled={!formSubmissionEnabled}
-                />
-              </div>
-
-              <div className="flex items-center justify-between">
-                <div className="space-y-1">
-                  <h3 className="text-sm font-medium">Course Creation</h3>
-                  <p className="text-sm text-gray-600">
-                    Allow creation of new courses
-                  </p>
-                </div>
-                <Switch
-                  checked={courseCreationEnabled && formSubmissionEnabled}
-                  onCheckedChange={setCourseCreationEnabled}
-                  disabled={!formSubmissionEnabled}
                 />
               </div>
             </CardContent>
@@ -111,27 +63,16 @@ const ControlPanel = () => {
             <CardHeader>
               <CardTitle>System Status</CardTitle>
               <p className="text-sm text-gray-600">
-                Current status of form submission controls
+                Current status of wish submission control
               </p>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className="flex items-center space-x-2">
-                  <div className={`w-3 h-3 rounded-full ${formSubmissionEnabled ? 'bg-green-500' : 'bg-red-500'}`} />
-                  <span className="text-sm">General Forms</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <div className={`w-3 h-3 rounded-full ${wishSubmissionEnabled && formSubmissionEnabled ? 'bg-green-500' : 'bg-red-500'}`} />
-                  <span className="text-sm">Wish Submissions</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <div className={`w-3 h-3 rounded-full ${teacherRegistrationEnabled && formSubmissionEnabled ? 'bg-green-500' : 'bg-red-500'}`} />
-                  <span className="text-sm">Teacher Registration</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <div className={`w-3 h-3 rounded-full ${courseCreationEnabled && formSubmissionEnabled ? 'bg-green-500' : 'bg-red-500'}`} />
-                  <span className="text-sm">Course Creation</span>
-                </div>
+              <div className="flex items-center space-x-2">
+                <div className={`w-3 h-3 rounded-full ${wishSubmissionEnabled ? 'bg-green-500' : 'bg-red-500'}`} />
+                <span className="text-sm">Wish Submissions</span>
+                <span className="text-xs text-gray-500">
+                  ({wishSubmissionEnabled ? 'Enabled' : 'Disabled'})
+                </span>
               </div>
             </CardContent>
           </Card>
