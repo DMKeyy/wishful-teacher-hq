@@ -5,10 +5,10 @@ import {
   BarChart3, 
   Users, 
   GiftIcon, 
-  Settings, 
   Menu,
   LogOut,
-  BookOpen
+  BookOpen,
+  Settings2
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import {
@@ -44,9 +44,9 @@ export const AppSidebar = () => {
       path: '/courses' 
     },
     { 
-      icon: Settings, 
-      label: 'Settings', 
-      path: '/settings' 
+      icon: Settings2, 
+      label: 'Control Panel', 
+      path: '/control-panel' 
     },
   ];
   
