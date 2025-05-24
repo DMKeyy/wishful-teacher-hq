@@ -14,22 +14,22 @@ const ControlPanel = () => {
   const handleSaveSettings = () => {
     // Here you would typically save the settings to a backend or local storage
     toast({
-      title: "Settings Saved",
-      description: "Wish submission setting has been updated successfully.",
+      title: "Paramètres sauvegardés",
+      description: "Le paramètre de soumission de souhaits a été mis à jour avec succès.",
     });
   };
 
   const handleResetSettings = () => {
     setWishSubmissionEnabled(true);
     toast({
-      title: "Settings Reset",
-      description: "Wish submission setting has been reset to default.",
+      title: "Paramètres réinitialisés",
+      description: "Le paramètre de soumission de souhaits a été réinitialisé par défaut.",
     });
   };
 
   return (
     <>
-      <Header title="Control Panel" />
+      <Header title="Panneau de contrôle" />
       
       <div className="p-6">
         <div className="max-w-4xl mx-auto space-y-6">
@@ -37,18 +37,18 @@ const ControlPanel = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <GiftIcon className="h-5 w-5" />
-                Wish Submission Control
+                Contrôle de soumission de souhaits
               </CardTitle>
               <p className="text-sm text-gray-600">
-                Enable or disable wish submissions across the application
+                Activer ou désactiver les soumissions de souhaits dans l'application
               </p>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="flex items-center justify-between">
                 <div className="space-y-1">
-                  <h3 className="text-sm font-medium">Wish Submissions</h3>
+                  <h3 className="text-sm font-medium">Soumissions de souhaits</h3>
                   <p className="text-sm text-gray-600">
-                    Allow users to submit new wish requests
+                    Permettre aux utilisateurs de soumettre de nouvelles demandes de souhaits
                   </p>
                 </div>
                 <Switch
@@ -61,17 +61,17 @@ const ControlPanel = () => {
 
           <Card>
             <CardHeader>
-              <CardTitle>System Status</CardTitle>
+              <CardTitle>Statut du système</CardTitle>
               <p className="text-sm text-gray-600">
-                Current status of wish submission control
+                Statut actuel du contrôle de soumission de souhaits
               </p>
             </CardHeader>
             <CardContent>
               <div className="flex items-center space-x-2">
                 <div className={`w-3 h-3 rounded-full ${wishSubmissionEnabled ? 'bg-green-500' : 'bg-red-500'}`} />
-                <span className="text-sm">Wish Submissions</span>
+                <span className="text-sm">Soumissions de souhaits</span>
                 <span className="text-xs text-gray-500">
-                  ({wishSubmissionEnabled ? 'Enabled' : 'Disabled'})
+                  ({wishSubmissionEnabled ? 'Activé' : 'Désactivé'})
                 </span>
               </div>
             </CardContent>
@@ -80,11 +80,11 @@ const ControlPanel = () => {
           <div className="flex gap-4">
             <Button onClick={handleSaveSettings} className="flex items-center gap-2">
               <Save className="h-4 w-4" />
-              Save Settings
+              Sauvegarder les paramètres
             </Button>
             <Button variant="outline" onClick={handleResetSettings} className="flex items-center gap-2">
               <RotateCcw className="h-4 w-4" />
-              Reset to Default
+              Réinitialiser par défaut
             </Button>
           </div>
         </div>
