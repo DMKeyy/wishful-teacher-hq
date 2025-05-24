@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Index from "./pages/Index";
 import Teachers from "./pages/Teachers";
 import Wishes from "./pages/Wishes";
@@ -25,8 +25,9 @@ const App = () => (
           
           {/* Dashboard Layout Routes */}
           <Route path="/" element={<DashboardLayout />}>
-            <Route path="teachers/*" element={<Teachers />} />
+            <Route path="dashboard" element={<Navigate to="/wishes" replace />} />
             <Route path="wishes/*" element={<Wishes />} />
+            <Route path="teachers/*" element={<Teachers />} />
             <Route path="courses/*" element={<Courses />} />
             <Route path="control-panel" element={<ControlPanel />} />
           </Route>
