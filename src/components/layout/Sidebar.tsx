@@ -7,7 +7,8 @@ import {
   Menu,
   LogOut,
   BookOpen,
-  Settings2
+  Settings2,
+  User
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import {
@@ -36,6 +37,11 @@ export const AppSidebar = () => {
       icon: BookOpen, 
       label: 'Courses', 
       path: '/courses' 
+    },
+    { 
+      icon: User, 
+      label: 'Profil', 
+      path: '/profile' 
     },
     { 
       icon: Settings2, 
