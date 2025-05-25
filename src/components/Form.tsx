@@ -1,4 +1,3 @@
-
 import React from 'react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
@@ -227,7 +226,7 @@ const renderChoiceTable = (semester: 'S1' | 'S2', choices: fichechoice[], setFn:
                 value={choice.wantsTd}
                 disabled={courses.length!==0&&choice.moduleId!==0&&!courses[choice.moduleId-1].hasTd}
                 onChange={(e) => setFn(semester, index, 'wantsTd', e.target.value )}
-              >{console.log(courses[choice.moduleId])}
+              >
                {groups.map((group) => (
                 <option key={group} value={group}>
                   {group}
