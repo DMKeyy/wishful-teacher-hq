@@ -76,7 +76,8 @@ function Form() {
     { moduleId: 0, rank: 2, wantsCours: false, wantsTd: 0, wantsTp: 0, targetSemester: 'S2' },
     { moduleId: 0, rank: 3, wantsCours: false, wantsTd: 0, wantsTp: 0, targetSemester: 'S2' },
   ]);
-       useEffect(() => {
+
+    useEffect(() => {
         // Fetch courses from the AP
         const token = localStorage.getItem("jwt");
         console.log("fetching courses");

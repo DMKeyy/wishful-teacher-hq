@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { GraduationCap, Search, Filter, Plus, Edit, Trash2, ChevronRight } from 'lucide-react';
@@ -39,8 +38,9 @@ export const TeachersList = () => {
   // Form state
   const [newTeacherName, setNewTeacherName] = useState('');
   const [newTeacherEmail, setNewTeacherEmail] = useState('');
-  const [newTeacherSubject, setNewTeacherSubject] = useState('');
+  const [newTeacherRank, setNewTeacherRank] = useState('');
   const [newTeacherDepartment, setNewTeacherDepartment] = useState('');
+  const [newTeacherOfficeNumber, setNewTeacherOfficeNumber] = useState('');
   
   const filteredTeachers = teachersList.filter(teacher => {
     const matchesSearch = teacher.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -56,8 +56,8 @@ export const TeachersList = () => {
   const handleAddTeacher = () => {
     if (newTeacherName.trim() === '' || newTeacherEmail.trim() === '') {
       toast({
-        title: "Error",
-        description: "Name and email are required",
+        title: "Erreur",
+        description: "Le nom et l'email sont requis",
         variant: "destructive"
       });
       return;
@@ -67,7 +67,7 @@ export const TeachersList = () => {
       id: teachersList.length > 0 ? Math.max(...teachersList.map(t => t.id)) + 1 : 1,
       name: newTeacherName,
       email: newTeacherEmail,
-      subject: newTeacherSubject,
+      subject: newTeacherRank, // Using rank field for subject temporarily
       department: newTeacherDepartment,
       avatar: "/placeholder.svg",
       joinDate: new Date().toISOString().split('T')[0],
@@ -81,8 +81,8 @@ export const TeachersList = () => {
     setIsAddDialogOpen(false);
     
     toast({
-      title: "Success",
-      description: "Teacher added successfully",
+      title: "Succès",
+      description: "Enseignant ajouté avec succès",
     });
   };
 
@@ -91,8 +91,8 @@ export const TeachersList = () => {
     
     if (newTeacherName.trim() === '' || newTeacherEmail.trim() === '') {
       toast({
-        title: "Error",
-        description: "Name and email are required",
+        title: "Erreur",
+        description: "Le nom et l'email sont requis",
         variant: "destructive"
       });
       return;
@@ -104,7 +104,7 @@ export const TeachersList = () => {
             ...teacher, 
             name: newTeacherName, 
             email: newTeacherEmail,
-            subject: newTeacherSubject,
+            subject: newTeacherRank,
             department: newTeacherDepartment 
           } 
         : teacher
@@ -115,8 +115,8 @@ export const TeachersList = () => {
     setIsEditDialogOpen(false);
     
     toast({
-      title: "Success",
-      description: "Teacher updated successfully",
+      title: "Succès",
+      description: "Enseignant modifié avec succès",
     });
   };
 
@@ -128,16 +128,17 @@ export const TeachersList = () => {
     setIsDeleteDialogOpen(false);
     
     toast({
-      title: "Success",
-      description: "Teacher deleted successfully",
+      title: "Succès",
+      description: "Enseignant supprimé avec succès",
     });
   };
 
   const resetForm = () => {
     setNewTeacherName('');
     setNewTeacherEmail('');
-    setNewTeacherSubject('');
+    setNewTeacherRank('');
     setNewTeacherDepartment('');
+    setNewTeacherOfficeNumber('');
     setCurrentTeacher(null);
   };
   
@@ -234,8 +235,9 @@ export const TeachersList = () => {
                           setCurrentTeacher(teacher);
                           setNewTeacherName(teacher.name);
                           setNewTeacherEmail(teacher.email);
-                          setNewTeacherSubject(teacher.subject);
+                          setNewTeacherRank(teacher.subject);
                           setNewTeacherDepartment(teacher.department);
+                          setNewTeacherOfficeNumber('');
                           setIsEditDialogOpen(true);
                         }}
                       >
@@ -273,20 +275,21 @@ export const TeachersList = () => {
 
       {/* Add Teacher Dialog */}
       <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
-        <DialogContent>
+        <DialogContent className="max-w-md">
           <DialogHeader>
-            <DialogTitle>Add New Teacher</DialogTitle>
+            <DialogTitle className="text-lg font-semibold">Ajouter un Nouvel Enseignant</DialogTitle>
           </DialogHeader>
           <div className="py-4 space-y-4">
             <div>
               <label className="block text-sm font-medium mb-2" htmlFor="teacher-name">
-                Teacher Name
+                Nom de l'Enseignant
               </label>
               <Input
                 id="teacher-name"
                 value={newTeacherName}
                 onChange={(e) => setNewTeacherName(e.target.value)}
-                placeholder="Enter teacher name"
+                placeholder="Entrez le nom de l'enseignant"
+                className="w-full"
               />
             </div>
             <div>
@@ -298,29 +301,44 @@ export const TeachersList = () => {
                 type="email"
                 value={newTeacherEmail}
                 onChange={(e) => setNewTeacherEmail(e.target.value)}
-                placeholder="Enter email address"
+                placeholder="Entrez l'adresse email"
+                className="w-full"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-2" htmlFor="teacher-subject">
-                Subject
+              <label className="block text-sm font-medium mb-2" htmlFor="teacher-rank">
+                Rang
               </label>
               <Input
-                id="teacher-subject"
-                value={newTeacherSubject}
-                onChange={(e) => setNewTeacherSubject(e.target.value)}
-                placeholder="Enter subject"
+                id="teacher-rank"
+                value={newTeacherRank}
+                onChange={(e) => setNewTeacherRank(e.target.value)}
+                placeholder="Entrez le rang"
+                className="w-full"
               />
             </div>
             <div>
               <label className="block text-sm font-medium mb-2" htmlFor="teacher-department">
-                Department
+                Département
               </label>
               <Input
                 id="teacher-department"
                 value={newTeacherDepartment}
                 onChange={(e) => setNewTeacherDepartment(e.target.value)}
-                placeholder="Enter department"
+                placeholder="Entrez le département"
+                className="w-full"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-2" htmlFor="teacher-office">
+                Numéro de Bureau
+              </label>
+              <Input
+                id="teacher-office"
+                value={newTeacherOfficeNumber}
+                onChange={(e) => setNewTeacherOfficeNumber(e.target.value)}
+                placeholder="Entrez le numéro de bureau"
+                className="w-full"
               />
             </div>
           </div>
@@ -329,10 +347,10 @@ export const TeachersList = () => {
               resetForm();
               setIsAddDialogOpen(false);
             }}>
-              Cancel
+              Annuler
             </Button>
             <Button onClick={handleAddTeacher} style={{ backgroundColor: '#9eb2b4' }}>
-              Add Teacher
+              Ajouter Enseignant
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -374,8 +392,8 @@ export const TeachersList = () => {
               </label>
               <Input
                 id="edit-teacher-subject"
-                value={newTeacherSubject}
-                onChange={(e) => setNewTeacherSubject(e.target.value)}
+                value={newTeacherRank}
+                onChange={(e) => setNewTeacherRank(e.target.value)}
                 placeholder="Enter subject"
               />
             </div>
