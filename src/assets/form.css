@@ -1,0 +1,79 @@
+
+.section {
+  margin: 20px 0;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.section label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #333;
+}
+
+.choise-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.choise-table th,
+.choise-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.choise-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.choise-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.choise-table tr:hover {
+  background-color: #f5f5f5;
+}
+
+.extra-radio {
+  margin: 10px 0;
+}
+
+.extra-radio label {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+  font-weight: normal;
+}
+
+.extra-input,
+.pfe-licence,
+.pfe-master {
+  width: 100%;
+  max-width: 200px;
+  margin-top: 5px;
+}
+
+.section input[type="text"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.section select {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f0f0f0;
+}
+
+.section select:disabled {
+  background-color: #e0e0e0;
+  color: #999;
+  cursor: not-allowed;
+}
