@@ -33,8 +33,8 @@ interface fichedeveoux{
     proposedPfeL: number;
     proposedPfeM: number;
     comments: string;
-    semester1Choices: [fichechoice,fichechoice,fichechoice];
-    semester2Choices: [fichechoice,fichechoice,fichechoice];
+    semester1Choices: fichechoice[];
+    semester2Choices: fichechoice[];
 }
 const schema= yup.object({
         extra_s1: yup.number().typeError("veuillez entrer un numéro").positive("numéro des heures doit ètre positive").integer("veuillez entrer un entier"),
@@ -116,10 +116,10 @@ function Form() {
         const selectedCourse = courses.find(c => c.id === moduleId);
         if (selectedCourse) {
             setSelectedCourses(prevCourses => {
-                const newCourses = [...selectedCourses];
+                const newCourses = [...prevCourses];
                 newCourses[index] = selectedCourse;
+                return newCourses;
             });
-        return newCourses;
         }
     };
    const choices = [
@@ -256,7 +256,7 @@ const renderChoiceTable = (semester: 'S1' | 'S2', choices: fichechoice[], setFn:
   );
         return (
         <>
-        <Header title="Form" showsidebar={false} showsearch={false}/>
+        <Header title="Form" />
                 <form className="bg-white p-4 flex justify-center items-center flex-col gap-4" >
 <div className="section">
           <label>Choix d'enseignements du Semestre 1</label>
